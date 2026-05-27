@@ -92,11 +92,6 @@ export $(grep -v '^#' .env | xargs)
    - 前端：`https://<your-app>.onrender.com/index.html`
    - Swagger：`https://<your-app>.onrender.com/swagger-ui.html`
 
-### 冷啟動防睡
-
-Render 免費 instance 閒置 15 分鐘會 sleep，第一個 request 要 20-30 秒喚醒。
-用 https://cron-job.org 設每 14 分鐘 GET `https://<your-app>.onrender.com/actuator/health` 保持喚醒。
-
 ## API 範例
 
 ```bash
