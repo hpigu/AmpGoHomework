@@ -32,8 +32,9 @@
           email: fd.get("email"),
           password: fd.get("password")
         });
-        showMsg(msg, "註冊成功，請至 Email 收開通信", "success");
+        showMsg(msg, "註冊成功，請至 Email 收開通信。3 秒後跳轉到登入頁...", "success");
         form.reset();
+        setTimeout(() => { window.location.href = "/login.html"; }, 3000);
       } catch (err) {
         showMsg(msg, err.message);
       }

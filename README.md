@@ -2,6 +2,26 @@
 
 Java / Spring Boot 會員系統 API：Email 註冊（含開通信）、密碼 + Email OTP 兩階段登入、查詢自己的最後登入時間。
 
+## 線上 Demo
+
+- **前端**：https://ampgohomework.onrender.com/index.html
+- **Swagger UI**：https://ampgohomework.onrender.com/swagger-ui/index.html
+- **Health**：https://ampgohomework.onrender.com/actuator/health
+
+> 部署在 Render 免費方案，閒置 15 分鐘會 sleep，第一次請求要 20-30 秒喚醒。
+
+### Email 寄送說明
+
+為了避免實際寄信被 SPAM 過濾、需驗證網域等麻煩，本專案使用 **Mailtrap Sandbox**：
+所有發出的信（開通信、OTP 信）都被攔截在開發者的 Mailtrap inbox 裡，**不會真的寄到註冊時填寫的 Email 信箱**。
+
+實測流程：
+1. 在註冊頁填任何 email（例如 `test@example.com`）
+2. 信件不會到該信箱
+3. 由開發者打開 Mailtrap inbox 出示開通連結與 OTP
+
+正式環境只需把 SMTP 設定從 `sandbox.smtp.mailtrap.io` 換成 Mailtrap Production（驗證網域後）、SendGrid、SES 等任何 SMTP 服務即可，程式碼不變。
+
 ## 功能
 
 - `POST /api/auth/register` — 註冊，寄送開通信
