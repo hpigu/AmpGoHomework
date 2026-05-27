@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>Verify OTP</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="card">
+    <h1>輸入 OTP</h1>
+    <p style="font-size:13px;color:#555">請輸入寄送到您 Email 的 6 碼驗證碼。</p>
+    <form id="form">
+      <label>OTP
+        <input type="text" name="otp" pattern="\d{6}" maxlength="6" required>
+      </label>
+      <button type="submit">驗證</button>
+    </form>
+    <div id="msg" class="msg" style="display:none"></div>
+    <div class="links"><a href="/login.html">回登入</a></div>
+  </div>
+  <script src="/app.js"></script>
+  <script>
+    const form = document.getElementById("form");
+    const msg = document.getElementById("msg");
+    const email = getPendingEmail();
+    if (!email) window.location.href = "/login.html";
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      try {
+        const data = await apiPost("/api/auth/verify-otp", { email, otp: fd.get("otp") });
+        setToken(data.token);
+        clearPendingEmail();
+        window.location.href = "/dashboard.html";
+      } catch (err) {
+        showMsg(msg, err.message);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mvn -q -DskipTests compile)",
+      "Bash(mvn -q -DskipTests clean compile)",
+      "Bash(curl -sf http://localhost:8080/actuator/health)",
+      "Bash(break)",
+      "Bash(curl -s http://localhost:8080/actuator/health)",
+      "Bash(pkill -f spring-boot)",
+      "Bash(pkill -f \"java.*auth\")",
+      "Bash(lsof -ti:8080)",
+      "Bash(xargs kill -9)",
+      "Bash(curl -sS -i -X POST http://localhost:8080/api/auth/register -H 'Content-Type: application/json' -d '{\"email\":\"test@example.com\",\"password\":\"Pass1234\"}')",
+      "Bash(curl -sS -X POST http://localhost:8080/api/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"test@example.com\",\"password\":\"Pass1234\"}')",
+      "Bash(xargs kill)",
+      "Bash(openssl rand *)",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}

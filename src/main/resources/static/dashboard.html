@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="card">
+    <h1>歡迎回來</h1>
+    <div>上次登入時間：</div>
+    <div class="value" id="lastLogin">載入中...</div>
+    <button id="logout" class="secondary">登出</button>
+    <div id="msg" class="msg" style="display:none"></div>
+  </div>
+  <script src="/app.js"></script>
+  <script>
+    const lastLogin = document.getElementById("lastLogin");
+    const msg = document.getElementById("msg");
+    const logout = document.getElementById("logout");
+
+    if (!getToken()) window.location.href = "/login.html";
+
+    (async () => {
+      try {
+        const data = await apiGet("/api/users/me/last-login", true);
+        if (data.lastLoginAt) {
+          const d = new Date(data.lastLoginAt);
+          lastLogin.textContent = d.toLocaleString();
+        } else {
+          lastLogin.textContent = data.message || "首次登入";
+        }
+      } catch (err) {
+        showMsg(msg, err.message);
+        if (err.message.includes("401") || err.message.toLowerCase().includes("auth")) {
+          clearToken();
+          setTimeout(() => window.location.href = "/login.html", 1500);
+        }
+      }
+    })();
+
+    logout.addEventListener("click", () => {
+      clearToken();
+      window.location.href = "/login.html";
+    });
+  </script>
+</body>
+</html>
