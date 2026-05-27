@@ -12,7 +12,7 @@ Java / Spring Boot 會員系統 API：Email 註冊（含開通信）、密碼 + 
 
 ### Email 寄送說明
 
-為了避免實際寄信被 SPAM 過濾、需驗證網域等麻煩，本專案使用 **Mailtrap Sandbox**：
+為了避免實際寄信被 SPAM 過濾、需驗證網域等麻煩，本專案使用 **[Mailtrap](https://mailtrap.io) Sandbox**：
 所有發出的信（開通信、OTP 信）都被攔截在開發者的 Mailtrap inbox 裡，**不會真的寄到註冊時填寫的 Email 信箱**。
 
 實測流程：
